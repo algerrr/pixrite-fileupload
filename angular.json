@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.less"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "pixrite"
+    }
+  },
+  "defaultProject": "pixrite",
+  "cli": {
+    "analytics": "f8ba3785-5167-4b98-b188-5e42f8ba7c8b"
+  }
 }
