@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
+import { FileUploadService } from '../services/file-upload.service';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.less']
+  styleUrls: ['./file-upload.component.less'],
+  providers: [FileUploadService]
 })
 export class FileUploadComponent implements OnInit {
   title = 'pixrite';
@@ -15,15 +17,28 @@ export class FileUploadComponent implements OnInit {
 
   public files: NgxFileDropEntry[] = [];
   model: any = {};
-  uploadForm: FormGroup;
+  uploadForm: NgForm;
   submitMode: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private fileService: FileUploadService) {
+    fileService.customerName$.subscribe(
+      // custName => {
+      //   this.model.customerName = custName;
+      // }
+    )
+   }
 
   ngOnInit() {
-    this.uploadForm = this.formBuilder.group({
-      fileToUpload: ['']
-    });
+    // this.uploadForm = this.formBuilder.group({
+    //   fileToUpload: ['']
+    // });
+    // this.model.projectType = '3dPrinting';
+    // this.model.customerName = 'Alger Brigham';
+    // this.model.company = 'Cayuse Technologies';
+    // this.model.zipcode = '97801';
+    // this.model.email = 'alger.brigham@gmail.com';
+    // this.model.phone = '5413107377';
+    // this.model.notes = 'FAKE NOTES';
   }
 
   toggleConfirm(){
@@ -31,9 +46,16 @@ export class FileUploadComponent implements OnInit {
       this.submitMode = false;
     else
       this.submitMode = true;
+
+    this.model = {};
+    this.files = []
+    // this.uploadForm.reset();
+
   }
 
   onSubmit() {
+    console.log(this.model.customerName);
+    // this.fileService.confirmUpload(this.model.customerName);
     
     for (const droppedFile of this.model.filesToUpload) {
 
@@ -42,12 +64,12 @@ export class FileUploadComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         fileEntry.file((file: File) => {
 
-          console.log(droppedFile.relativePath, file);
-          this.uploadForm.get('fileToUpload').setValue(file);
+          // console.log(droppedFile.relativePath, file);
+          // this.uploadForm.get('fileToUpload').setValue(file);
           
           const formData = new FormData()
-          // formData.append('fileToUpload', file, droppedFile.relativePath)
-          formData.append('fileToUpload', this.uploadForm.get('fileToUpload').value);
+          formData.append('fileToUpload', file, droppedFile.relativePath)
+          // formData.append('fileToUpload', this.uploadForm.get('fileToUpload').value);
           formData.append('projectType', this.model.projectType)
           formData.append('customerName', this.model.customerName)
           formData.append('zipcode', this.model.zipcode)
@@ -74,6 +96,7 @@ export class FileUploadComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         console.log(droppedFile.relativePath, fileEntry);
       }
+      this.submitMode = false;
     }
   }
 

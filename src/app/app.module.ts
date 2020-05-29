@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ViewUploadsComponent } from './view-uploads/view-uploads.component';
 import { HeaderComponent } from './header/header.component';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 
 @NgModule({
@@ -21,8 +20,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     MustMatchDirective,
     HeaderComponent,
     FileUploadComponent,
-    ViewUploadsComponent,
-    ConfirmModalComponent
+    ViewUploadsComponent
   ],
   imports: [
     BrowserModule,

@@ -100,12 +100,12 @@ if ($uploadOk == 0) {
 
 //Send an email message
 $msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your";
-$msg = $msg . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . " \nEmail: " . $phone . " \nNotes: " . $notes;
+$msg = $msg . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . " \nPhone: " . $phone . " \nNotes: " . $notes;
 
 // use wordwrap() if lines are longer than 70 characters
 $msg = wordwrap($msg,70);
 
 // send email
-mail("alger.brigham@gmail.com","My subject",$msg);
+mail($email, "Insert DB Transaction Number here",$msg);
 echo "sent email successful";
 ?>

@@ -2,7 +2,7 @@
     Confirmation Page</a>
 <div class="container" *ngIf="submitMode">
     <div class="row justify-content-md-center">
-        <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+        <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
             [mustMatch]="['password', 'confirmPassword']" novalidate>
             <div class="form-row">
                 <div class="form-group col">
@@ -11,10 +11,10 @@
                         #projectType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectType.invalid }"
                         required>
                         <option value=""></option>
-                        <option value="3d">3D Printing</option>
-                        <option value="cnc">CNC/Machining</option>
-                        <option value="urethane">Urethane Casting</option>
-                        <option value="short">Short-Run Production</option>
+                        <option value="3dPrinting">3D Printing</option>
+                        <option value="CNCMachining">CNC/Machining</option>
+                        <option value="Urethane">Urethane Casting</option>
+                        <option value="ShortProduction">Short-Run Production</option>
                     </select>
                     <div *ngIf="f.submitted && projectType.invalid" class="invalid-feedback">
                         <div *ngIf="projectType.errors.required">Project Type is required</div>
@@ -143,5 +143,37 @@
     </div>
 </div>
 <div class="container" *ngIf="!submitMode">
-    <app-confirm-modal></app-confirm-modal>
+    <div class="row">
+        <H3>CONFIRMATION #: [insert Confirmation number from DB here.]</H3>
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3 text-truncate">Project Type</dt>
+        <dd class="col-sm-9">{{ model.projectType }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Customer Name</dt>
+        <dd class="col-sm-9">{{ model.customerName }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Company</dt>
+        <dd class="col-sm-9">{{ model.company }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Zip Code</dt>
+        <dd class="col-sm-9">{{ model.zipcode }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Email</dt>
+        <dd class="col-sm-9">{{ model.email }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Phone</dt>
+        <dd class="col-sm-9">{{ model.phone }}</dd>
+
+        <dt class="col-sm-3 text-truncate">Notes</dt>
+        <dd class="col-sm-9">{{ model.notes }}</dd>
+
+        <dt class="col-sm-3">Files to Upload</dt>
+        <dd class="col-sm-9">
+            <dl class="row" *ngFor="let item of files; let i = index">
+                <dd class="col-sm-8">{{ item.relativePath }}</dd>
+            </dl>
+        </dd>
+    </dl>
+    <button class="btn btn-secondary" (click)="toggleConfirm()">Okay</button>
 </div>
