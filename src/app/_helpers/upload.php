@@ -7,105 +7,213 @@ $uploadOk       = 1;
 $fileType       = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 $postdata       = file_get_contents("php://input");
 $projectType    = $_POST['projectType'];
-$customerName           = $_POST['customerName'];
+$customerName   = $_POST['customerName'];
 $company        = $_POST['company'];
 $zipcode        = $_POST['zipcode'];
 $email          = $_POST['email'];
 $phone          = $_POST['phone'];
 $notes          = $_POST['notes'];
+$servername = "localhost:3306";
+$username = "mstr_3digsfu";
+$password = "_0b8fG6d";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
+// print "Connected successfully";
+
+mysqli_select_db($conn, "3dig_sfu") or die( mysqli_error($conn) );
+
+// print 'Here is some more debugging info:';
+// print_r($_FILES);
+// print_r($_POST);
 
 
-echo 'Here is some more debugging info:';
-echo "<br>";
-print_r($_FILES);
-echo "<br>";
-print_r($_POST);
-echo "<br>";
-
-echo "target_dir " . $target_dir;
-echo "<br>";
-echo "target_file " . $target_file;
-echo "<br>";
-echo "uploadOk " . $uploadOk;
-echo "<br>";
-echo "fileType " . $fileType;
-echo "<br>";
-echo "projectType " . $projectType;
-echo "<br>";
-echo "customerName " . $customerName;
-echo "<br>";
-echo "company " . $company;
-echo "<br>";
-echo "zipcode " . $zipcode;
-echo "<br>";
-echo "email " . $email;
-echo "<br>";
-echo "phone " . $phone;
-echo "<br>";
-echo "notes " . $notes;
-echo "<br>";
+// print "target_dir " . $target_dir;
+// print "target_file " . $target_file;
+// print "uploadOk " . $uploadOk;
+// print "fileType " . $fileType;
+// print "projectType " . $projectType;
+// print "customerName " . $customerName;
+// print "company " . $company;
+// print "zipcode " . $zipcode;
+// print "email " . $email;
+// print "phone " . $phone;
+// print "notes " . $notes;
 
 // Check if image file is a actual image or fake image
 // if(isset($_POST["submit"])) {
 //   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
 //   if($check !== false) {
-//     echo "File is an image - " . $check["mime"] . ".";
+//     print "File is an image - " . $check["mime"] . ".";
 //     $uploadOk = 1;
 //   } else {
-//     echo "File is not an image.";
+//     print "File is not an image.";
 //     $uploadOk = 0;
 //   }
 // }
 
 // Check if file already exists
 if (file_exists($target_file)) {
-  echo "Sorry, file already exists.";
-  echo "<br>";
-  
+  // print "Sorry, file already exists.";
   $uploadOk = 0;
 }
 
 // Check file size
 // if ($_FILES["fileToUpload"]["size"] > 500000) {
-//   echo "Sorry, your file is too large.";
+//   print "Sorry, your file is too large.";
 //   $uploadOk = 0;
 // }
 
 // Allow certain file formats
 if($fileType != "jpg" && $fileType != "png" && $fileType != "jpeg"
 && $fileType != "gif" && $fileType != "pdf") {
-  echo "Sorry, only JPG, JPEG, PNG, GIF and PDF files are allowed.";
-  echo "<br>";
-  
+  // print "Sorry, only JPG, JPEG, PNG, GIF and PDF files are allowed.";
   $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-  echo "Sorry, your file was not uploaded.";
-  echo "<br>";
+  // print "Sorry, your file was not uploaded.";
+  
   
 // if everything is ok, try to upload file
 } else {
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    echo "<br>";
-    
+    // print "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
   } else {
-    echo "Sorry, there was an error uploading your file.";
-    echo "<br>";
-    
+    // print "Sorry, there was an error uploading your file.";
   }
 }
 
+$sql = "INSERT INTO upload_transaction (ID, TXN_STATUS, DATE_CREATED) VALUES (NULL, 'PENDING', CURRENT_TIMESTAMP())";
+
+if ($conn->query($sql) === TRUE) {
+  // print "New upload_transaction record created successfully";
+} else {
+  // print "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql = "SELECT ID, TXN_STATUS FROM `upload_transaction` WHERE ID = (select MAX(id) from upload_transaction)";
+$result = $conn->query($sql);
+$txnId = "";
+$txnStatus = "";
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    // print "txnId: " . $row["ID"]. "txnStatus: " . $row["TXN_STATUS"]. "<br>";
+    $txnId = $row["ID"];
+    $txnStatus = $row["TXN_STATUS"];
+  }
+} else {
+  // print "0 results from upload_transaction";
+}
+if ($txnId == ""){
+  die("Transaction ID is null");
+}
+
+$sql = "INSERT INTO customers (ID, CUSTOMER_NAME, COMPANY, ZIPCODE, EMAIL, PHONE, DATE_CREATED) 
+VALUES (NULL, '$customerName', '$company', '$zipcode', '$email', '$phone', CURRENT_TIMESTAMP())";
+
+if ($conn->query($sql) === TRUE) {
+  // print "New customers record created successfully";
+} else {
+  // print "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql = "SELECT ID FROM `customers` WHERE ID = (select MAX(id) from customers)";
+$result = $conn->query($sql);
+$custId = "";
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    // print "custId: " . $row["ID"]. "<br>";
+    $custId = $row["ID"];
+  }
+} else {
+  // print "0 results from customers";
+}
+
+if ($custId == ""){
+  die("Customer ID is null");
+}
+
+$sql = "INSERT INTO file_upload (ID, PROJECT_TYPE, NOTES, TXN_ID, CUST_ID, DATE_CREATED) 
+VALUES ( NULL, '$projectType', '$notes', $txnId, $custId, CURRENT_TIMESTAMP())";
+
+if ($conn->query($sql) === TRUE) {
+  // print "New file_upload record created successfully";
+} else {
+  // print "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql = "SELECT ID FROM `file_upload` WHERE ID = (select MAX(id) from file_upload)";
+$result = $conn->query($sql);
+$fileUploadId = "";
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    // print "fileUploadId: " . $row["ID"]. "<br>";
+    $fileUploadId = $row["ID"];
+  }
+} else {
+  // print "0 results from file_upload";
+}
+
+if ($fileUploadId == ""){
+  die("File Upload ID is null");
+}
+
+$sql = "INSERT INTO uploaded_files (ID, FILE_UPLOAD_ID, FILE_URL, DATE_CREATED) 
+VALUES (NULL, $fileUploadId, '$target_file', CURRENT_TIMESTAMP())";
+
+if ($conn->query($sql) === TRUE) {
+  // print "New uploaded_files record created successfully";
+} else {
+  // print "Error: " . $sql . "<br>" . $conn->error;
+}
+
+$sql = "SELECT ID FROM `uploaded_files` WHERE ID = (select MAX(id) from uploaded_files)";
+$result = $conn->query($sql);
+$uploadedFilesId = "";
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    // print "uploadedFilesId: " . $row["ID"]. "<br>";
+    $uploadedFilesId = $row["ID"];
+  }
+} else {
+  // print "0 results from file_upload";
+}
+
+if ($uploadedFilesId == ""){
+  die("File Upload ID is null");
+}
+
+$conn->close();
+
 //Send an email message
-$msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your";
-$msg = $msg . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . " \nPhone: " . $phone . " \nNotes: " . $notes;
+$msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your project files and get back to your within 24 hours!";
+$msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . 
+" \nPhone: " . $phone . " \nNotes: " . $notes;
 
 // use wordwrap() if lines are longer than 70 characters
 $msg = wordwrap($msg,70);
 
 // send email
-mail($email, "Insert DB Transaction Number here",$msg);
-echo "sent email successful";
+mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
+// print "sent email successful";
+
+$data = [ 'txnId' => $txnId, 'txnStatus' => $txnStatus ];
+header('Content-Type: application/json;charset=utf-8');
+echo json_encode($data);
+
 ?>

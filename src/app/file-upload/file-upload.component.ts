@@ -19,6 +19,8 @@ export class FileUploadComponent implements OnInit {
   model: any = {};
   uploadForm: NgForm;
   submitMode: boolean = true;
+  txnId = "";
+  txnStatus = "";
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private fileService: FileUploadService) {
     fileService.customerName$.subscribe(
@@ -49,6 +51,8 @@ export class FileUploadComponent implements OnInit {
 
     this.model = {};
     this.files = []
+    this.txnId = "";
+    this.txnStatus = "";
     // this.uploadForm.reset();
 
   }
@@ -83,9 +87,14 @@ export class FileUploadComponent implements OnInit {
             'security-token': 'mytoken'
           })
  
-          this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'blob' })
+          this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
           .subscribe(
-            (res) => console.log(res),
+            (res) => {
+              console.log(res);
+              let resJson = JSON.parse(JSON.stringify(res));
+              this.txnId = resJson.txnId;
+              this.txnStatus = resJson.txnStatus;
+            },
             (err) => console.log(err)
           )
           console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.model, null, 3));

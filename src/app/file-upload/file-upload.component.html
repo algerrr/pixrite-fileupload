@@ -1,5 +1,5 @@
-<a class="btn btn-primary mr-1" (click)="toggleConfirm()">Toggle
-    Confirmation Page</a>
+<!-- <a class="btn btn-primary mr-1" (click)="toggleConfirm()">Toggle
+    Confirmation Page</a> -->
 <div class="container" *ngIf="submitMode">
     <div class="row justify-content-md-center">
         <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
@@ -115,7 +115,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>File Name to be Uploaded</th>
                             <!-- <th>Size</th>
                 <th>Last Modified</th> -->
                         </tr>
@@ -144,7 +144,10 @@
 </div>
 <div class="container" *ngIf="!submitMode">
     <div class="row">
-        <H3>CONFIRMATION #: [insert Confirmation number from DB here.]</H3>
+        <H3>CONFIRMATION #: {{ txnId }}</H3>
+    </div>
+    <div class="row">
+        <H5>Project Status: {{ txnStatus }}</H5>
     </div>
     <dl class="row">
         <dt class="col-sm-3 text-truncate">Project Type</dt>
