@@ -13,9 +13,9 @@ $zipcode        = $_POST['zipcode'];
 $email          = $_POST['email'];
 $phone          = $_POST['phone'];
 $notes          = $_POST['notes'];
-$servername = "localhost:3306";
-$username = "mstr_3digsfu";
-$password = "_0b8fG6d";
+$servername     = "localhost:3306";
+$username       = "mstr_3digsfu";
+$password       = "_0b8fG6d";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);

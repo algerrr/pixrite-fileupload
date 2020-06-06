@@ -19,6 +19,8 @@ export class FileUploadComponent implements OnInit {
   model: any = {};
   uploadForm: NgForm;
   submitMode: boolean = true;
+  showUploadTable: boolean = false;
+  
   txnId = "";
   txnStatus = "";
 
@@ -112,6 +114,7 @@ export class FileUploadComponent implements OnInit {
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
     this.model.filesToUpload = files;
+    this.showUploadTable = true;
   }
 
   public fileOver(event) {
