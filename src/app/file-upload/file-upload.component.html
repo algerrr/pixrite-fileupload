@@ -135,7 +135,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="text-center">
+            <div class="form-row justify-content-md-center">
+                <re-captcha (resolved)="resolved($event,null)" formControlName="f" siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
+                </re-captcha>
+            </div>
+            <div class="text-center" *ngIf="f.valid && showUploadTable && captchaResolved">
                 <button class="btn btn-primary mr-1">Submit</button>
                 <button class="btn btn-secondary" type="reset">Cancel</button>
             </div>

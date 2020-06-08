@@ -2,6 +2,7 @@
 
 // phpinfo();
 $target_dir     = "/var/www/vhosts/3dintegrationgroup.com/httpdocs/secure-file-upload/uploads/";
+$fileName       = basename($_FILES["fileToUpload"]["name"]);
 $target_file    = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk       = 1;
 $fileType       = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -200,7 +201,7 @@ if ($uploadedFilesId == ""){
 
 $conn->close();
 
-//Send an email message
+//Send an customer email message
 $msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your project files and get back to your within 24 hours!";
 $msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . 
 " \nPhone: " . $phone . " \nNotes: " . $notes;
@@ -210,7 +211,29 @@ $msg = wordwrap($msg,70);
 
 // send email
 mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
-// print "sent email successful";
+
+//Send an Admin email message
+$msg = "Hi Admin, \n";
+$msg = $msg . $customerName . " has uploaded project files for review. You can download the files here:\n";
+$msg = $msg . "https://www.3dintegrationgroup.com/secure-file-upload/uploads/". $fileName . " \n";
+$msg = $msg . "Be sure to remove the file from the server once you have a local copy for the plant. \n";
+$msg = $msg . "Cheers, \n";
+$msg = $msg . "PIXRITE Secure File Upload Team";
+
+// use wordwrap() if lines are longer than 70 characters
+$msg = wordwrap($msg,70);
+
+$adminEmail = "alger.brigham@gmail.com";
+$adminSubject = "New 3D Integration Project Submitted!";
+$headers = array(
+  'From' => 'jaredrowe@pixrite.com',
+  'Reply-To' => 'jaredrowe@pixrite.com',
+  'X-Mailer' => 'PHP/' . phpversion()
+);
+
+// send email
+// mail($adminEmail, $adminSubject, $msg, $headers);
+
 
 $data = [ 'txnId' => $txnId, 'txnStatus' => $txnStatus ];
 header('Content-Type: application/json;charset=utf-8');

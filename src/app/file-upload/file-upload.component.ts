@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { FileUploadService } from '../services/file-upload.service';
 
+
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -20,6 +21,7 @@ export class FileUploadComponent implements OnInit {
   uploadForm: NgForm;
   submitMode: boolean = true;
   showUploadTable: boolean = false;
+  captchaResolved: boolean = false;
   
   txnId = "";
   txnStatus = "";
@@ -55,6 +57,8 @@ export class FileUploadComponent implements OnInit {
     this.files = []
     this.txnId = "";
     this.txnStatus = "";
+    this.showUploadTable = false;
+    this.captchaResolved = false;
     // this.uploadForm.reset();
 
   }
@@ -123,5 +127,10 @@ export class FileUploadComponent implements OnInit {
 
   public fileLeave(event) {
     console.log(event);
+  }
+
+  resolved(captchaResponse: string, res) {
+    console.log(`Resolved response token: ${captchaResponse}`);
+    this.captchaResolved = true;
   }
 }
