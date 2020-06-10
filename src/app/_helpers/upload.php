@@ -15,8 +15,14 @@ $email          = $_POST['email'];
 $phone          = $_POST['phone'];
 $notes          = $_POST['notes'];
 $servername     = "localhost:3306";
-$username       = "mstr_3digsfu";
-$password       = "_0b8fG6d";
+//Prod Values
+// $username       = "mstr_3digsfu";
+// $password       = "_0b8fG6d";
+// $dbName         = "3dig_sfu";
+//dev Values
+$username       = "root";
+$password       = "admin";
+$dbName         = "pixrite";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -27,7 +33,7 @@ if ($conn->connect_error) {
 }
 // print "Connected successfully";
 
-mysqli_select_db($conn, "3dig_sfu") or die( mysqli_error($conn) );
+mysqli_select_db($conn, $dbName) or die( mysqli_error($conn) );
 
 // print 'Here is some more debugging info:';
 // print_r($_FILES);
