@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { FileUploadService } from '../services/file-upload.service';
 
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.less'],
-  providers: [FileUploadService]
+  providers: []
 })
 export class FileUploadComponent implements OnInit {
   title = 'pixrite';
@@ -26,12 +25,7 @@ export class FileUploadComponent implements OnInit {
   txnId = "";
   txnStatus = "";
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient, private fileService: FileUploadService) {
-    fileService.customerName$.subscribe(
-      // custName => {
-      //   this.model.customerName = custName;
-      // }
-    )
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
    }
 
   ngOnInit() {
@@ -103,7 +97,7 @@ export class FileUploadComponent implements OnInit {
             },
             (err) => console.log(err)
           )
-          console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.model, null, 3));
+          // console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.model, null, 3));
           
         });
       } else {
