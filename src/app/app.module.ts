@@ -13,6 +13,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ViewUploadsComponent } from './view-uploads/view-uploads.component';
 import { HeaderComponent } from './header/header.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { LoginComponent } from "./login";
 
 
 
@@ -22,7 +23,8 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
     MustMatchDirective,
     HeaderComponent,
     FileUploadComponent,
-    ViewUploadsComponent
+    ViewUploadsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

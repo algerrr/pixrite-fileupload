@@ -4,7 +4,9 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 
 import { User, Role } from '../_models';
+import { environment } from '../../environments/environment';
 
+const SERVER_URL = 'users.php';
 const users: User[] = [
     { id: 1, username: 'admin', password: 'admin', firstName: 'Admin', lastName: 'User', role: Role.Admin },
     { id: 2, username: 'user', password: 'user', firstName: 'Normal', lastName: 'User', role: Role.User }
@@ -42,7 +44,19 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function findusers(){
+            const formData = new FormData();
+            formData.append('action', 'findusers');
             
+            this.http.post(`${environment.apiUrl}/users.php`, formData, { headers: headers, responseType: 'json' })
+            .subscribe(
+              (res) => {
+                console.log(res);
+                let resJson = JSON.parse(JSON.stringify(res));
+                this.txnId = resJson.txnId;
+                this.txnStatus = resJson.txnStatus;
+              },
+              (err) => console.log(err)
+            );
             return ok({});
         }
 

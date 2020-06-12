@@ -85,7 +85,7 @@ export class FileUploadComponent implements OnInit {
           // Headers
           const headers = new HttpHeaders({
             'security-token': 'mytoken'
-          })
+          });
  
           this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
           .subscribe(
@@ -96,7 +96,7 @@ export class FileUploadComponent implements OnInit {
               this.txnStatus = resJson.txnStatus;
             },
             (err) => console.log(err)
-          )
+          );
           // console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.model, null, 3));
           
         });
