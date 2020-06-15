@@ -30,9 +30,9 @@ import { LoginComponent } from "./login";
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    ReactiveFormsModule,
     FormsModule,
     NgxFileDropModule,
-    ReactiveFormsModule,
     HttpClientModule,
     RecaptchaModule,
     RecaptchaFormsModule

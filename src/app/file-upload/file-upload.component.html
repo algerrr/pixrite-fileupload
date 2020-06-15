@@ -2,6 +2,13 @@
     Confirmation Page</a> -->
 <div class="container" *ngIf="submitMode">
     <div class="row justify-content-md-center">
+        <p>
+            <ngb-alert type="info" [dismissible]="false">
+                <strong>3D Integration Group:</strong> Project Upload
+            </ngb-alert>
+        </p>
+    </div>
+    <div class="row justify-content-md-center">
         <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
             [mustMatch]="['password', 'confirmPassword']" novalidate>
             <div class="form-row">
@@ -136,7 +143,8 @@
                 </table>
             </div>
             <div class="form-row justify-content-md-center">
-                <re-captcha (resolved)="resolved($event,null)" formControlName="f" siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
+                <re-captcha (resolved)="resolved($event,null)" formControlName="f"
+                    siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
                 </re-captcha>
             </div>
             <div class="text-center" *ngIf="f.valid && showUploadTable && captchaResolved">
