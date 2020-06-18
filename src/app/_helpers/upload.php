@@ -21,7 +21,7 @@ $servername     = "localhost:3306";
 // $dbName         = "3dig_sfu";
 //dev Values
 $username       = "root";
-$password       = "admin";
+$password       = "";
 $dbName         = "pixrite";
 
 // Create connection

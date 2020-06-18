@@ -40,12 +40,33 @@ switch ($action) {
     case "findusers":
         echo "i is apple";
         break;
-    case "bar":
-        echo "i is bar";
+    case "getuploads":
+        $sql = "SELECT ID, TXN_STATUS FROM `upload_transaction` WHERE ID = (select MAX(id) from upload_transaction)";
+        $result = $conn->query($sql);
+        $txnId = "";
+        $txnStatus = "";
+        
+        if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+            // print "txnId: " . $row["ID"]. "txnStatus: " . $row["TXN_STATUS"]. "<br>";
+            $txnId = $row["ID"];
+            $txnStatus = $row["TXN_STATUS"];
+          }
+        } else {
+          // print "0 results from upload_transaction";
+        }
+        if ($txnId == ""){
+          die("Transaction ID is null");
+        }
         break;
     case "cake":
         echo "i is cake";
         break;
 }
+
+$data = [ 'txnId' => $txnId, 'txnStatus' => $txnStatus ];
+header('Content-Type: application/json;charset=utf-8');
+echo json_encode($data);
 
 ?>
