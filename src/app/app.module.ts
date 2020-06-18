@@ -13,7 +13,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ViewUploadsComponent } from './view-uploads/view-uploads.component';
 import { HeaderComponent } from './header/header.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
-import { LoginComponent } from "./login";
+// import { LoginComponent } from "./login";
 
 
 
@@ -24,7 +24,7 @@ import { LoginComponent } from "./login";
     HeaderComponent,
     FileUploadComponent,
     ViewUploadsComponent,
-    LoginComponent
+    // LoginComponent
   ],
   imports: [
     BrowserModule,
