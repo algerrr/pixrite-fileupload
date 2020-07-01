@@ -61,7 +61,7 @@ export class CountryService {
     sortDirection: ''
   };
   // SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/users.php";
-  SERVER_URL = "https://localhost:80/users.php";
+  SERVER_URL = "http://localhost:80/users.php";
   UPLOADS: Upload[] = [];
 
   constructor(private pipe: DecimalPipe, private http: HttpClient) {
@@ -104,10 +104,10 @@ export class CountryService {
     formData.append('action', 'getuploads');
     // Headers
     const headers = new HttpHeaders({
-      'security-token': 'mytoken'
+      // 'security-token': 'mytoken'
     });
 
-    this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
+    this.http.post(this.SERVER_URL, formData, { headers: null, responseType: 'json' })
       .subscribe(
         (res) => {
           console.log(res);
