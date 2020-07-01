@@ -23,14 +23,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let country of countries$ | async">
-      <th scope="row">{{ country.id }}</th>
-      <td>
-        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + country.flag" class="mr-2" style="width: 20px">
-        <ngb-highlight [result]="country.name" [term]="service.searchTerm"></ngb-highlight>
-      </td>
-      <td><ngb-highlight [result]="country.area | number" [term]="service.searchTerm"></ngb-highlight></td>
-      <td><ngb-highlight [result]="country.population | number" [term]="service.searchTerm"></ngb-highlight></td>
+    <tr *ngFor="let upload of uploads$ | async">
+      <th scope="row">{{ upload.id }}</th>
+      <!-- <td>
+        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + upload.flag" class="mr-2" style="width: 20px">
+        <ngb-highlight [result]="upload.name" [term]="service.searchTerm"></ngb-highlight>
+      </td> -->
+      <td><ngb-highlight [result]="upload.area | number" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.population | number" [term]="service.searchTerm"></ngb-highlight></td>
     </tr>
     </tbody>
   </table>

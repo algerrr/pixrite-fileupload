@@ -60,7 +60,8 @@ export class CountryService {
     sortColumn: '',
     sortDirection: ''
   };
-  SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/users.php";
+  // SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/users.php";
+  SERVER_URL = "https://localhost:80/users.php";
   UPLOADS: Upload[] = [];
 
   constructor(private pipe: DecimalPipe, private http: HttpClient) {
