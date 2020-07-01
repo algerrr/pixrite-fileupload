@@ -12,8 +12,8 @@ import { FormBuilder, NgForm } from '@angular/forms';
 })
 export class FileUploadComponent implements OnInit {
   title = 'pixrite';
-  SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/upload.php";
   // SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/upload.php";
+  SERVER_URL = "http://localhost:80/upload.php";
 
   public files: NgxFileDropEntry[] = [];
   model: any = {};
@@ -84,10 +84,10 @@ export class FileUploadComponent implements OnInit {
  
           // Headers
           const headers = new HttpHeaders({
-            'security-token': 'mytoken'
+            // 'security-token': 'mytoken'
           });
  
-          this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
+          this.http.post(this.SERVER_URL, formData, { headers: null, responseType: 'json' })
           .subscribe(
             (res) => {
               console.log(res);
