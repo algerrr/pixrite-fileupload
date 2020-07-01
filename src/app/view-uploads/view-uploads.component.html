@@ -13,7 +13,7 @@
       <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
   </div>
 
-  <!-- <table class="table table-striped">
+  <table class="table table-striped">
     <thead>
     <tr>
       <th scope="col">#</th>
@@ -25,15 +25,15 @@
     <tbody>
     <tr *ngFor="let upload of uploads$ | async">
       <th scope="row">{{ upload.id }}</th>
-      <!-- <td>
+       <td>
         <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + upload.flag" class="mr-2" style="width: 20px">
         <ngb-highlight [result]="upload.name" [term]="service.searchTerm"></ngb-highlight>
-      </td> -->
+      </td>
       <td><ngb-highlight [result]="upload.area | number" [term]="service.searchTerm"></ngb-highlight></td>
       <td><ngb-highlight [result]="upload.population | number" [term]="service.searchTerm"></ngb-highlight></td>
     </tr>
     </tbody>
-  </table> -->
+  </table>
 
   <div class="d-flex justify-content-between p-2">
     <ngb-pagination
