@@ -1,5 +1,6 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
 // phpinfo();
 $target_dir     = "/var/www/vhosts/3dintegrationgroup.com/httpdocs/secure-file-upload/uploads/";
 $fileName       = basename($_FILES["fileToUpload"]["name"]);
@@ -16,13 +17,13 @@ $phone          = $_POST['phone'];
 $notes          = $_POST['notes'];
 $servername     = "localhost:3306";
 //Prod Values
-// $username       = "mstr_3digsfu";
-// $password       = "_0b8fG6d";
-// $dbName         = "3dig_sfu";
+$username       = "mstr_3digsfu";
+$password       = "_0b8fG6d";
+$dbName         = "3dig_sfu";
 //dev Values
-$username       = "root";
-$password       = "";
-$dbName         = "pixrite";
+// $username       = "root";
+// $password       = "admin";
+// $dbName         = "pixrite";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -90,11 +91,11 @@ if ($uploadOk == 0) {
   
 // if everything is ok, try to upload file
 } else {
-  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-    // print "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-  } else {
-    // print "Sorry, there was an error uploading your file.";
-  }
+  // if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+  //   // print "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+  // } else {
+  //   // print "Sorry, there was an error uploading your file.";
+  // }
 }
 
 $sql = "INSERT INTO upload_transaction (ID, TXN_STATUS, DATE_CREATED) VALUES (NULL, 'PENDING', CURRENT_TIMESTAMP())";
@@ -216,7 +217,7 @@ $msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $custome
 $msg = wordwrap($msg,70);
 
 // send email
-mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
+// mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
 
 //Send an Admin email message
 $msg = "Hi Admin, \n";
