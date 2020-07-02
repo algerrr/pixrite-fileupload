@@ -17,20 +17,23 @@
     <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col" sortable="name" (sort)="onSort($event)">Country</th>
-      <th scope="col" sortable="area" (sort)="onSort($event)">Area</th>
-      <th scope="col" sortable="population" (sort)="onSort($event)">Population</th>
+      <th scope="col" sortable="transaction_status" (sort)="onSort($event)">Status</th>
+      <th scope="col" sortable="name" (sort)="onSort($event)">Client Name</th>
+      <th scope="col" sortable="email" (sort)="onSort($event)">email</th>
+      <th scope="col" sortable="project_type" (sort)="onSort($event)">Project Type</th>
+      <th scope="col" sortable="file_url" (sort)="onSort($event)">File URL</th>
+      <th scope="col" sortable="date_created" (sort)="onSort($event)">Date Created</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let upload of uploads$ | async">
-      <th scope="row">{{ upload.id }}</th>
-       <td>
-        <img [src]="'https://upload.wikimedia.org/wikipedia/commons/' + upload.flag" class="mr-2" style="width: 20px">
-        <ngb-highlight [result]="upload.name" [term]="service.searchTerm"></ngb-highlight>
-      </td>
-      <td><ngb-highlight [result]="upload.area | number" [term]="service.searchTerm"></ngb-highlight></td>
-      <td><ngb-highlight [result]="upload.population | number" [term]="service.searchTerm"></ngb-highlight></td>
+      <th scope="row">{{ upload.transaction_id }}</th>
+      <td><ngb-highlight [result]="upload.transaction_status" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.customer_name" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.email" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.project_type" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.file_url" [term]="service.searchTerm"></ngb-highlight></td>
+      <td><ngb-highlight [result]="upload.date_created" [term]="service.searchTerm"></ngb-highlight></td>
     </tr>
     </tbody>
   </table>

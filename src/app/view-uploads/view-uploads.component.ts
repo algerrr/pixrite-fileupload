@@ -26,6 +26,7 @@ export class ViewUploadsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.searchTerm = '';
   }
 
   onSort({ column, direction }: SortEvent) {

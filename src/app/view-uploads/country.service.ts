@@ -36,14 +36,14 @@ function sort(uploads: Upload[], column: SortColumn, direction: string): Upload[
   }
 }
 
-function matches(upload: Upload, term: string, pipe: PipeTransform) {
+function matches(upload: Upload, term: string) {
   return upload.customer_name.toLowerCase().includes(term.toLowerCase())
     || upload.email.toLowerCase().includes(term.toLowerCase())
     || upload.file_url.toLowerCase().includes(term.toLowerCase())
     || upload.project_type.toLowerCase().includes(term.toLowerCase())
-    || upload.transaction_status.toLowerCase().includes(term.toLowerCase())
-    || pipe.transform(upload.transaction_id).includes(term)
-    || pipe.transform(upload.date_created).includes(term);
+    || upload.transaction_status.toLowerCase().includes(term.toLowerCase());
+    // || pipe.transform(upload.transaction_id).includes(term)
+    // || pipe.transform(upload.date_created).includes(term);
 }
 
 @Injectable({ providedIn: 'root' })
@@ -55,7 +55,7 @@ export class CountryService {
 
   private _state: State = {
     page: 1,
-    pageSize: 4,
+    pageSize: 6,
     searchTerm: '',
     sortColumn: '',
     sortDirection: ''
@@ -111,8 +111,11 @@ export class CountryService {
       .subscribe(
         (res) => {
           console.log(res);
+          console.log(JSON.stringify(res));
+          // let resString = JSON.stringify(res);
           let resJson = JSON.parse(JSON.stringify(res));
-          this.UPLOADS = JSON.parse(resJson);
+          // console.log(resString.status);
+          this.UPLOADS = resJson;
         },
         (err) => console.log(err)
       );
@@ -121,7 +124,7 @@ export class CountryService {
     let uploads = sort(this.UPLOADS, sortColumn, sortDirection);
 
     // 2. filter
-    uploads = uploads.filter(upload => matches(upload, searchTerm, this.pipe));
+    uploads = uploads.filter(upload => matches(upload, searchTerm));
     const total = uploads.length;
 
     // 3. paginate
