@@ -7,28 +7,7 @@ import { ViewUploadsComponent } from './view-uploads/view-uploads.component';
 // import { Role } from './_models';
 
 
-const routes: Routes = [
-  {
-      path: '',
-      component: FileUploadComponent,
-      // canActivate: [AuthGuard]
-  },
-  // {
-  //     path: 'admin',
-  //     component: ViewUploadsComponent,
-      // canActivate: [AuthGuard],
-      // data: { roles: [Role.Admin] }
-  // },
-  // {
-  //     path: 'login',
-  //     component: LoginComponent
-  // },
-
-  // otherwise redirect to home
-  // { path: '**', redirectTo: '' },
-  { path: 'fileupload', component: FileUploadComponent },
-  { path: 'viewuploads', component: ViewUploadsComponent },
-];
+const routes: Routes = [];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

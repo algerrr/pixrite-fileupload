@@ -2,86 +2,82 @@
     Confirmation Page</a> -->
 <div class="container" *ngIf="submitMode">
     <div class="row justify-content-md-center">
-        <p>
-            <ngb-alert type="info" [dismissible]="false">
-                <strong>3D Integration Group:</strong> Project Upload
-            </ngb-alert>
-        </p>
-    </div>
-    <div class="row justify-content-md-center">
-        <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
-            [mustMatch]="['password', 'confirmPassword']" novalidate>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Project Type</label>
-                    <select name="projectType" class="form-control" [(ngModel)]="model.projectType"
-                        #projectType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectType.invalid }"
-                        required>
-                        <option value=""></option>
-                        <option value="3dPrinting">3D Printing</option>
-                        <option value="CNCMachining">CNC/Machining</option>
-                        <option value="Urethane">Urethane Casting</option>
-                        <option value="ShortProduction">Short-Run Production</option>
-                    </select>
-                    <div *ngIf="f.submitted && projectType.invalid" class="invalid-feedback">
-                        <div *ngIf="projectType.errors.required">Project Type is required</div>
+        <div class="col">
+            <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
+                [mustMatch]="['password', 'confirmPassword']" novalidate>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Project Type</label>
+                        <select name="projectType" class="form-control" [(ngModel)]="model.projectType"
+                            #projectType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectType.invalid }"
+                            required>
+                            <option value=""></option>
+                            <option value="AddAndAdv">Additive & Advanced</option>
+                            <option value="SubAndTrad">Subtractive & Traditional</option>
+                            <option value="Urethane">Urethane Casting</option>
+                            <option value="Consulting">Consulting</option>
+                            <option value="PaintFinish">Paint & Finishing Services</option>
+                            <option value="Unsure">Unsure</option>
+                        </select>
+                        <div *ngIf="f.submitted && projectType.invalid" class="invalid-feedback">
+                            <div *ngIf="projectType.errors.required">Project Type is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-5">
+                        <label>Name</label>
+                        <input type="text" name="customerName" class="form-control" [(ngModel)]="model.customerName"
+                            #customerName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && customerName.invalid }"
+                            required>
+                        <div *ngIf="f.submitted && customerName.invalid" class="invalid-feedback">
+                            <div *ngIf="customerName.errors.required">Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col-5">
+                        <label>Company</label>
+                        <input type="text" name="company" class="form-control" [(ngModel)]="model.company"
+                            #company="ngModel" [ngClass]="{ 'is-invalid': f.submitted && company.invalid }" required>
+                        <div *ngIf="f.submitted && company.invalid" class="invalid-feedback">
+                            <div *ngIf="company.errors.required">Company is required</div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group col-5">
-                    <label>Name</label>
-                    <input type="text" name="customerName" class="form-control" [(ngModel)]="model.customerName"
-                        #customerName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && customerName.invalid }"
-                        required>
-                    <div *ngIf="f.submitted && customerName.invalid" class="invalid-feedback">
-                        <div *ngIf="customerName.errors.required">Name is required</div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Zip Code</label>
+                        <input type="text" name="zipcode" class="form-control" [(ngModel)]="model.zipcode"
+                            #zipcode="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }" required>
+                        <div *ngIf="f.submitted && zipcode.invalid" class="invalid-feedback">
+                            <div *ngIf="zipcode.errors.required">Zip Code is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label>Email</label>
+                        <input type="text" name="email" class="form-control" [(ngModel)]="model.email" #email="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
+                        <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                            <div *ngIf="email.errors.required">Email is required</div>
+                            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group col-5">
-                    <label>Company</label>
-                    <input type="text" name="company" class="form-control" [(ngModel)]="model.company"
-                        #company="ngModel" [ngClass]="{ 'is-invalid': f.submitted && company.invalid }" required>
-                    <div *ngIf="f.submitted && company.invalid" class="invalid-feedback">
-                        <div *ngIf="company.errors.required">Company is required</div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label>Phone</label>
+                        <input type="text" name="phone" class="form-control" [(ngModel)]="model.phone" #phone="ngModel"
+                            [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }" required>
+                        <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
+                            <div *ngIf="phone.errors.required">Phone is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label>Notes</label>
+                        <input type="text" name="notes" class="form-control" [(ngModel)]="model.notes" #notes="ngModel">
+                        <div *ngIf="f.submitted && notes.invalid" class="invalid-feedback">
+                            <div *ngIf="notes.errors.required">Notes are required</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Zip Code</label>
-                    <input type="text" name="zipcode" class="form-control" [(ngModel)]="model.zipcode"
-                        #zipcode="ngModel" [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }" required>
-                    <div *ngIf="f.submitted && zipcode.invalid" class="invalid-feedback">
-                        <div *ngIf="zipcode.errors.required">Zip Code is required</div>
-                    </div>
-                </div>
-                <div class="form-group col">
-                    <label>Email</label>
-                    <input type="text" name="email" class="form-control" [(ngModel)]="model.email" #email="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required email>
-                    <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
-                        <div *ngIf="email.errors.required">Email is required</div>
-                        <div *ngIf="email.errors.email">Email must be a valid email address</div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label>Phone</label>
-                    <input type="text" name="phone" class="form-control" [(ngModel)]="model.phone" #phone="ngModel"
-                        [ngClass]="{ 'is-invalid': f.submitted && zipcode.invalid }" required>
-                    <div *ngIf="f.submitted && phone.invalid" class="invalid-feedback">
-                        <div *ngIf="phone.errors.required">Phone is required</div>
-                    </div>
-                </div>
-                <div class="form-group col">
-                    <label>Notes</label>
-                    <input type="text" name="notes" class="form-control" [(ngModel)]="model.notes" #notes="ngModel">
-                    <div *ngIf="f.submitted && notes.invalid" class="invalid-feedback">
-                        <div *ngIf="notes.errors.required">Notes are required</div>
-                    </div>
-                </div>
-            </div>
-            <!-- <div class="form-row">
+                <!-- <div class="form-row">
                   <div class="form-group col">
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" [(ngModel)]="model.password"
@@ -103,7 +99,7 @@
                     </div>
                   </div>
                 </div> -->
-            <!-- <div class="form-group form-check">
+                <!-- <div class="form-group form-check">
                   <input type="checkbox" name="acceptTerms" id="acceptTerms" class="form-check-input"
                     [(ngModel)]="model.acceptTerms" #acceptTerms="ngModel"
                     [ngClass]="{ 'is-invalid': f.submitted && acceptTerms.invalid }" required>
@@ -111,6 +107,13 @@
                   <div *ngIf="f.submitted && acceptTerms.invalid" class="invalid-feedback">Accept Ts & Cs is required
                   </div>
                 </div> -->
+                <div class="text-center" *ngIf="f.valid && showUploadTable && captchaResolved">
+                    <button class="btn btn-primary mr-1">Submit</button>
+                    <button class="btn btn-secondary" type="reset">Cancel</button>
+                </div>
+            </form>
+        </div>
+        <div class="col">
             <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
                 (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
                 <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
@@ -124,7 +127,7 @@
                         <tr>
                             <th>File Name to be Uploaded</th>
                             <!-- <th>Size</th>
-                <th>Last Modified</th> -->
+            <th>Last Modified</th> -->
                         </tr>
                     </thead>
                     <tbody class="upload-name-style">
@@ -133,11 +136,11 @@
                                 <strong>{{ item.relativePath }}</strong>
                             </td>
                             <!-- <td>
-                  <strong>{{ item.size }} Bytes</strong>
-                </td>
-                <td>
-                  <strong>{{ item.lastModified }}</strong>
-                </td> -->
+              <strong>{{ item.size }} Bytes</strong>
+            </td>
+            <td>
+              <strong>{{ item.lastModified }}</strong>
+            </td> -->
                         </tr>
                     </tbody>
                 </table>
@@ -147,11 +150,7 @@
                     siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
                 </re-captcha>
             </div>
-            <div class="text-center" *ngIf="f.valid && showUploadTable && captchaResolved">
-                <button class="btn btn-primary mr-1">Submit</button>
-                <button class="btn btn-secondary" type="reset">Cancel</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 <div class="container" *ngIf="!submitMode">

@@ -27,7 +27,7 @@ $servername      = "localhost:3306";
 // $dbName         = "3dig_sfu";
 //dev Values
 $username       = "root";
-$password       = "admin";
+$password       = "";
 $dbName         = "pixrite";
 
 // Create connection
@@ -52,7 +52,7 @@ switch ($action) {
         
         if ($result->num_rows > 0) {
           // output data of each row
-          $data = ['OKAY'];
+          // $data = ['OKAY'];
 
           while($row = $result->fetch_assoc()) {
             // print_r($row);

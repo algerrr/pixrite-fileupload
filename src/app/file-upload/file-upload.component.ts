@@ -41,22 +41,6 @@ export class FileUploadComponent implements OnInit {
     // this.model.notes = 'FAKE NOTES';
   }
 
-  toggleConfirm(){
-    if(this.submitMode)
-      this.submitMode = false;
-    else
-      this.submitMode = true;
-
-    this.model = {};
-    this.files = []
-    this.txnId = "";
-    this.txnStatus = "";
-    this.showUploadTable = false;
-    this.captchaResolved = false;
-    // this.uploadForm.reset();
-
-  }
-
   onSubmit() {
     console.log(this.model.customerName);
     // this.fileService.confirmUpload(this.model.customerName);
@@ -87,7 +71,7 @@ export class FileUploadComponent implements OnInit {
             // 'security-token': 'mytoken'
           });
  
-          this.http.post(this.SERVER_URL, formData, { headers: null, responseType: 'json' })
+          this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
           .subscribe(
             (res) => {
               console.log(res);
@@ -126,5 +110,21 @@ export class FileUploadComponent implements OnInit {
   resolved(captchaResponse: string, res) {
     console.log(`Resolved response token: ${captchaResponse}`);
     this.captchaResolved = true;
+  }
+
+  toggleConfirm(){
+    if(this.submitMode)
+      this.submitMode = false;
+    else
+      this.submitMode = true;
+
+    this.model = {};
+    this.files = []
+    this.txnId = "";
+    this.txnStatus = "";
+    this.showUploadTable = false;
+    this.captchaResolved = false;
+    // this.uploadForm.reset();
+
   }
 }
