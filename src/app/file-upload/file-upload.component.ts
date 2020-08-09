@@ -12,8 +12,8 @@ import { FormBuilder, NgForm } from '@angular/forms';
 })
 export class FileUploadComponent implements OnInit {
   title = 'pixrite';
-  // SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/upload.php";
-  SERVER_URL = "http://localhost:80/upload.php";
+  SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/upload.php";
+  // SERVER_URL = "http://localhost:80/upload.php";
 
   public files: NgxFileDropEntry[] = [];
   model: any = {};

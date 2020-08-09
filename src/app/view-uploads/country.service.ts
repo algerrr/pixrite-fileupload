@@ -55,13 +55,13 @@ export class CountryService {
 
   private _state: State = {
     page: 1,
-    pageSize: 6,
+    pageSize: 5,
     searchTerm: '',
     sortColumn: '',
     sortDirection: ''
   };
-  // SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/users.php";
-  SERVER_URL = "http://localhost:80/users.php";
+  SERVER_URL = "https://www.3dintegrationgroup.com/secure-file-upload/users.php";
+  // SERVER_URL = "http://localhost:80/users.php";
   UPLOADS: Upload[] = [];
 
   constructor(private pipe: DecimalPipe, private http: HttpClient) {

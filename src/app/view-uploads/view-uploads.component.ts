@@ -1,12 +1,11 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, QueryList, ViewChildren, OnInit, OnDestroy } from '@angular/core';
+import { Component, QueryList, ViewChildren, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Country } from './country';
 import { CountryService } from './country.service';
 import { NgbdSortableHeader, SortEvent } from './sortable.directive';
 import { Upload } from './upload';
-import { Router, NavigationEnd } from '@angular/router';
 
 
 @Component(
@@ -15,32 +14,24 @@ import { Router, NavigationEnd } from '@angular/router';
     templateUrl: './view-uploads.component.html',
     providers: [CountryService, DecimalPipe]
   })
-export class ViewUploadsComponent implements OnInit, OnDestroy {
+export class ViewUploadsComponent implements OnInit, AfterContentInit, AfterViewInit{
   uploads$: Observable<Upload[]>;
   total$: Observable<number>;
-  mySubscription: any;
-
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: CountryService, private router:Router) {
+  constructor(public service: CountryService) {
     this.uploads$ = service.uploads$;
     this.total$ = service.total$;
 
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
-      return false;
-    };
-    this.mySubscription = this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        // Trick the Router into believing it's last link wasn't previously loaded
-        this.router.navigated = false;
-      }
-    });
   }
-  ngOnDestroy(): void {
-    if (this.mySubscription) {
-      this.mySubscription.unsubscribe();
-    }
+  ngAfterContentInit(): void {
+    console.log('AfterContentInit');
+    this.refresh();
+  }
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit');
+    this.refresh();
   }
 
   ngOnInit(): void {
@@ -56,5 +47,9 @@ export class ViewUploadsComponent implements OnInit, OnDestroy {
 
     this.service.sortColumn = column;
     this.service.sortDirection = direction;
+  }
+
+  refresh(): void {
+    this.service.searchTerm = '';
   }
 }
