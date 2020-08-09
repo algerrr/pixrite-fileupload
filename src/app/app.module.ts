@@ -4,14 +4,12 @@ import { APP_BASE_HREF } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgxFileDropModule } from "ngx-file-drop";
 import { MustMatchDirective } from './_helpers/must-match.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ViewUploadsComponent } from './view-uploads/view-uploads.component';
-import { HeaderComponent } from './header/header.component';
 import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 // import { LoginComponent } from "./login";
 
@@ -21,14 +19,13 @@ import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
   declarations: [
     AppComponent,
     MustMatchDirective,
-    HeaderComponent,
     FileUploadComponent,
     ViewUploadsComponent,
     // LoginComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    // AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
     FormsModule,

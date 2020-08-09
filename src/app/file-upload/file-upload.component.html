@@ -6,7 +6,7 @@
             <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
                 [mustMatch]="['password', 'confirmPassword']" novalidate>
                 <div class="form-row">
-                    <div class="form-group col">
+                    <div class="form-group col-4">
                         <label>Project Type</label>
                         <select name="projectType" class="form-control" [(ngModel)]="model.projectType"
                             #projectType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectType.invalid }"
@@ -23,7 +23,7 @@
                             <div *ngIf="projectType.errors.required">Project Type is required</div>
                         </div>
                     </div>
-                    <div class="form-group col-5">
+                    <div class="form-group col-4">
                         <label>Name</label>
                         <input type="text" name="customerName" class="form-control" [(ngModel)]="model.customerName"
                             #customerName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && customerName.invalid }"
@@ -32,7 +32,7 @@
                             <div *ngIf="customerName.errors.required">Name is required</div>
                         </div>
                     </div>
-                    <div class="form-group col-5">
+                    <div class="form-group col-4">
                         <label>Company</label>
                         <input type="text" name="company" class="form-control" [(ngModel)]="model.company"
                             #company="ngModel" [ngClass]="{ 'is-invalid': f.submitted && company.invalid }" required>
