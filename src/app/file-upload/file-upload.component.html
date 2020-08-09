@@ -71,7 +71,9 @@
                     </div>
                     <div class="form-group col">
                         <label>Notes</label>
-                        <input type="text" name="notes" class="form-control" [(ngModel)]="model.notes" #notes="ngModel">
+                        
+                        <textarea class="form-control" name="notes" id="notes" rows="3"[(ngModel)]="model.notes" #notes="ngModel"></textarea>
+                        <!-- <input type="text" name="notes" class="form-control" [(ngModel)]="model.notes" #notes="ngModel"> -->
                         <div *ngIf="f.submitted && notes.invalid" class="invalid-feedback">
                             <div *ngIf="notes.errors.required">Notes are required</div>
                         </div>
