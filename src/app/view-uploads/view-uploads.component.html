@@ -9,8 +9,13 @@
 
 <form>
   <div class="form-group form-inline">
-      Full text search: <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
+      Full text search: 
+      <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
       <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
+  </div>
+  <div class="form-group form-inline">
+      Refresh Table: 
+      <input class="form-control ml-2" type="text" name="searchTerm" [(ngModel)]="service.searchTerm"/>
   </div>
 
   <table class="table table-striped">

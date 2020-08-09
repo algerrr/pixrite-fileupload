@@ -26,9 +26,9 @@ $username       = "mstr_3digsfu";
 $password       = "_0b8fG6d";
 $dbName         = "3dig_sfu";
 //dev Values
-// $username       = "root";
-// $password       = "admin";
-// $dbName         = "pixrite";
+$username       = "root";
+$password       = "";
+$dbName         = "pixrite";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -52,7 +52,7 @@ switch ($action) {
         
         if ($result->num_rows > 0) {
           // output data of each row
-        //   $data = [array('status' => 'OKAY')];
+          // $data = ['OKAY'];
 
           while($row = $result->fetch_assoc()) {
             // print_r($row);
