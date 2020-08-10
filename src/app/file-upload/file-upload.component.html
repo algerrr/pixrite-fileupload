@@ -1,7 +1,7 @@
 <!-- <a class="btn btn-primary mr-1" (click)="toggleConfirm()">Toggle
     Confirmation Page</a> -->
-<div class="container" *ngIf="submitMode">
-    <div class="row justify-content-md-center">
+<div class="container-fluid" *ngIf="submitMode">
+    <div class="row">
         <div class="col">
             <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
                 [mustMatch]="['password', 'confirmPassword']" novalidate>
@@ -71,8 +71,9 @@
                     </div>
                     <div class="form-group col">
                         <label>Notes</label>
-                        
-                        <textarea class="form-control" name="notes" id="notes" rows="3"[(ngModel)]="model.notes" #notes="ngModel"></textarea>
+
+                        <textarea class="form-control" name="notes" id="notes" rows="3" [(ngModel)]="model.notes"
+                            #notes="ngModel"></textarea>
                         <!-- <input type="text" name="notes" class="form-control" [(ngModel)]="model.notes" #notes="ngModel"> -->
                         <div *ngIf="f.submitted && notes.invalid" class="invalid-feedback">
                             <div *ngIf="notes.errors.required">Notes are required</div>
@@ -115,39 +116,42 @@
                 </div>
             </form>
         </div>
-        <div class="col">
-            <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
-                (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
-                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                    Drag and Drop File here or Click Browse &nbsp;
-                    <button type="button" (click)="openFileSelector()">Browse</button>
-                </ng-template>
-            </ngx-file-drop>
-            <div class="upload-table" *ngIf="showUploadTable">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>File Name to be Uploaded</th>
-                            <!-- <th>Size</th>
+        <div class="w-100"></div>
+        <div class="col align-self-center">
+            <div class="row">
+                <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
+                    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+                    <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                        Drag and Drop File here or Click Browse &nbsp;
+                        <button type="button" (click)="openFileSelector()">Browse</button>
+                    </ng-template>
+                </ngx-file-drop>
+                <div class="upload-table" *ngIf="showUploadTable">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>File Name to be Uploaded</th>
+                                <!-- <th>Size</th>
             <th>Last Modified</th> -->
-                        </tr>
-                    </thead>
-                    <tbody class="upload-name-style">
-                        <tr *ngFor="let item of files; let i = index">
-                            <td>
-                                <strong>{{ item.relativePath }}</strong>
-                            </td>
-                            <!-- <td>
+                            </tr>
+                        </thead>
+                        <tbody class="upload-name-style">
+                            <tr *ngFor="let item of files; let i = index">
+                                <td>
+                                    <strong>{{ item.relativePath }}</strong>
+                                </td>
+                                <!-- <td>
               <strong>{{ item.size }} Bytes</strong>
             </td>
             <td>
               <strong>{{ item.lastModified }}</strong>
             </td> -->
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="form-row justify-content-md-center">
+            <div class="row justify-self-center">
                 <re-captcha (resolved)="resolved($event,null)" formControlName="f"
                     siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
                 </re-captcha>
