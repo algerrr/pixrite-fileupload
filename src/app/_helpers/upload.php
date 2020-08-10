@@ -1,6 +1,6 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: *");
 // phpinfo();
 $target_dir     = "/var/www/vhosts/3dintegrationgroup.com/httpdocs/secure-file-upload/uploads/";
 $fileName       = basename($_FILES["fileToUpload"]["name"]);
@@ -18,11 +18,11 @@ $notes          = $_POST['notes'];
 $servername     = "localhost:3306";
 //Prod Values
 $username       = "mstr_3digsfu";
-$password       = "_0b8fG6d";
+$password       = "2Nlv$29c";
 $dbName         = "3dig_sfu";
 //dev Values
 // $username       = "root";
-// $password       = "admin";
+// $password       = "";
 // $dbName         = "pixrite";
 
 // Create connection
@@ -217,7 +217,7 @@ $msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $custome
 $msg = wordwrap($msg,70);
 
 // send email
-// mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
+mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
 
 //Send an Admin email message
 $msg = "Hi Admin, \n";
@@ -239,7 +239,7 @@ $headers = array(
 );
 
 // send email
-// mail($adminEmail, $adminSubject, $msg, $headers);
+mail($adminEmail, $adminSubject, $msg, $headers);
 
 
 $data = [ 'txnId' => $txnId, 'txnStatus' => $txnStatus ];

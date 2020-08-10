@@ -2,9 +2,6 @@
 
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST');
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
-header('Access-Control-Allow-Credentials: true');
 // phpinfo();
 // $target_dir     = "/var/www/vhosts/3dintegrationgroup.com/httpdocs/secure-file-upload/uploads/";
 // $fileName       = basename($_FILES["fileToUpload"]["name"]);
@@ -23,12 +20,12 @@ $action          = $_POST['action'];
 $servername      = "localhost:3306";
 //Prod Values
 $username       = "mstr_3digsfu";
-$password       = "_0b8fG6d";
+$password       = "2Nlv$29c";
 $dbName         = "3dig_sfu";
 //dev Values
-$username       = "root";
-$password       = "";
-$dbName         = "pixrite";
+// $username       = "root";
+// $password       = "";
+// $dbName         = "pixrite";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
@@ -47,7 +44,7 @@ switch ($action) {
         echo "i is apple";
         break;
     case "getuploads":
-        $sql = "SELECT upload_transaction.ID AS TRANSACTION_ID, upload_transaction.TXN_STATUS, file_upload.PROJECT_TYPE, customers.CUSTOMER_NAME, customers.EMAIL, SUBSTRING(uploaded_files.FILE_URL,67) AS FILE_URL, upload_transaction.DATE_CREATED FROM file_upload INNER JOIN upload_transaction ON file_upload.TXN_ID = upload_transaction.ID INNER JOIN customers ON file_upload.CUST_ID = customers.ID INNER JOIN uploaded_files ON uploaded_files.FILE_UPLOAD_ID = file_upload.ID";
+        $sql = "SELECT upload_transaction.ID AS TRANSACTION_ID, upload_transaction.TXN_STATUS, file_upload.PROJECT_TYPE, customers.CUSTOMER_NAME, customers.EMAIL, SUBSTRING(uploaded_files.FILE_URL,68) AS FILE_URL, upload_transaction.DATE_CREATED FROM file_upload INNER JOIN upload_transaction ON file_upload.TXN_ID = upload_transaction.ID INNER JOIN customers ON file_upload.CUST_ID = customers.ID INNER JOIN uploaded_files ON uploaded_files.FILE_UPLOAD_ID = file_upload.ID";
         $result = $conn->query($sql);
         
         if ($result->num_rows > 0) {
