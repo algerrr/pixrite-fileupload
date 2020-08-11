@@ -1,6 +1,6 @@
 <?php
 
-header("Access-Control-Allow-Origin: *");
+header('Access-Control-Allow-Origin: *');
 // phpinfo();
 $target_dir     = "/var/www/vhosts/3dintegrationgroup.com/httpdocs/secure-file-upload/uploads/";
 $fileName       = basename($_FILES["fileToUpload"]["name"]);
@@ -18,11 +18,11 @@ $notes          = $_POST['notes'];
 $servername     = "localhost:3306";
 //Prod Values
 $username       = "mstr_3digsfu";
-$password       = "2Nlv$29c";
+$password       = "L9c@6uj2";
 $dbName         = "3dig_sfu";
 //dev Values
 // $username       = "root";
-// $password       = "";
+// $password       = "admin";
 // $dbName         = "pixrite";
 
 // Create connection
@@ -91,11 +91,11 @@ if ($uploadOk == 0) {
   
 // if everything is ok, try to upload file
 } else {
-  // if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+  if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
   //   // print "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-  // } else {
+  } else {
   //   // print "Sorry, there was an error uploading your file.";
-  // }
+  }
 }
 
 $sql = "INSERT INTO upload_transaction (ID, TXN_STATUS, DATE_CREATED) VALUES (NULL, 'PENDING', CURRENT_TIMESTAMP())";
@@ -209,15 +209,56 @@ if ($uploadedFilesId == ""){
 $conn->close();
 
 //Send an customer email message
-$msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your project files and get back to your within 24 hours!";
-$msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . 
-" \nPhone: " . $phone . " \nNotes: " . $notes;
+// $msg = "Thank you for submitting a potential 3D Printing Project! One of our Design and Build Specialists will review your project files and get back to your within 24 hours!";
+// $msg = $msg . "\nProject Status: " . $txnStatus . "\nCustomer Name: " . $customerName . " \nCompany: " . $company . " \nZip Code: " . $zipcode . " \nEmail: " . $email . 
+// " \nPhone: " . $phone . " \nNotes: " . $notes;
 
-// use wordwrap() if lines are longer than 70 characters
-$msg = wordwrap($msg,70);
+// // use wordwrap() if lines are longer than 70 characters
+// $msg = wordwrap($msg,70);
 
-// send email
-mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
+// // send email
+// mail($email, "Here is your 3D Integration Group Project ID ".$txnId,$msg);
+
+
+// Multiple recipients
+$to = $email; // note the comma
+// Subject
+$subject = 'Here is your 3D Integration Group Project ID ' . $txnId;
+// Message
+$message = '
+<html>
+<head>
+  <title>Birthday Reminders for August</title>
+</head>
+<body>
+  <p>Here are the birthdays upcoming in August!</p>
+  <table>
+    <tr>
+      <th>Person</th><th>Day</th><th>Month</th><th>Year</th>
+    </tr>
+    <tr>
+      <td>Johny</td><td>10th</td><td>August</td><td>1970</td>
+    </tr>
+    <tr>
+      <td>Sally</td><td>17th</td><td>August</td><td>1973</td>
+    </tr>
+  </table>
+</body>
+</html>
+';
+
+// To send HTML mail, the Content-type header must be set
+$headers[] = 'MIME-Version: 1.0';
+$headers[] = 'Content-type: text/html; charset=iso-8859-1';
+
+// Additional headers
+$headers[] = 'To: ' . $email;
+$headers[] = 'From: 3D Integration Support <support@3dintegration.com>';
+// $headers[] = 'Cc: birthdayarchive@example.com';
+// $headers[] = 'Bcc: birthdaycheck@example.com';
+
+// Mail it
+mail($to, $subject, $message, implode("\r\n", $headers));
 
 //Send an Admin email message
 $msg = "Hi Admin, \n";
@@ -230,11 +271,11 @@ $msg = $msg . "PIXRITE Secure File Upload Team";
 // use wordwrap() if lines are longer than 70 characters
 $msg = wordwrap($msg,70);
 
-$adminEmail = "alger.brigham@gmail.com";
+$adminEmail = "support@pixrite.com";
 $adminSubject = "New 3D Integration Project Submitted!";
 $headers = array(
-  'From' => 'jaredrowe@pixrite.com',
-  'Reply-To' => 'jaredrowe@pixrite.com',
+  'From' => 'support@3dintegration.com',
+  'Reply-To' => 'support@3dintegration.com',
   'X-Mailer' => 'PHP/' . phpversion()
 );
 
