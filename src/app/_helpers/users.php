@@ -20,7 +20,7 @@ $action          = $_POST['action'];
 $servername      = "localhost:3306";
 //Prod Values
 $username       = "mstr_3digsfu";
-$password       = "2Nlv$29c";
+$password       = "L9c@6uj2";
 $dbName         = "3dig_sfu";
 //dev Values
 // $username       = "root";

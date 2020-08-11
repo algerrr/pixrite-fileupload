@@ -7,7 +7,7 @@ import { FormBuilder, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
-  styleUrls: ['./file-upload.component.less'],
+  styleUrls: ['./file-upload.component.css'],
   providers: []
 })
 export class FileUploadComponent implements OnInit {
