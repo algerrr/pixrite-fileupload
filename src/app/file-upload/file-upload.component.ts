@@ -39,6 +39,7 @@ export class FileUploadComponent implements OnInit {
     // this.model.email = 'alger.brigham@gmail.com';
     // this.model.phone = '5413107377';
     // this.model.notes = 'FAKE NOTES';
+    this.model.completionPercent = '0%';
   }
 
   onSubmit() {
