@@ -17,6 +17,7 @@ export class FileUploadComponent implements OnInit {
 
   public files: NgxFileDropEntry[] = [];
   model: any = {};
+  // model.completionPercent = "0%";
   uploadForm: NgForm;
   submitMode: boolean = true;
   showUploadTable: boolean = false;
@@ -39,7 +40,7 @@ export class FileUploadComponent implements OnInit {
     // this.model.email = 'alger.brigham@gmail.com';
     // this.model.phone = '5413107377';
     // this.model.notes = 'FAKE NOTES';
-    this.model.completionPercent = '0%';
+    this.model.completionPercent = '25%';
   }
 
   onSubmit() {
