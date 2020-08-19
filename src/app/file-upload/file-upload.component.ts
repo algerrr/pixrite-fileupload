@@ -22,12 +22,12 @@ export class FileUploadComponent implements OnInit {
   submitMode: boolean = true;
   showUploadTable: boolean = false;
   captchaResolved: boolean = false;
-  
+
   txnId = "";
   txnStatus = "";
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
-   }
+  }
 
   ngOnInit() {
     // this.uploadForm = this.formBuilder.group({
@@ -40,13 +40,13 @@ export class FileUploadComponent implements OnInit {
     // this.model.email = 'alger.brigham@gmail.com';
     // this.model.phone = '5413107377';
     // this.model.notes = 'FAKE NOTES';
-    this.model.completionPercent = '25%';
+    this.model.completionPercent = '0%';
   }
 
   onSubmit() {
     console.log(this.model.customerName);
     // this.fileService.confirmUpload(this.model.customerName);
-    
+
     for (const droppedFile of this.model.filesToUpload) {
 
       // Is it a file?
@@ -56,7 +56,7 @@ export class FileUploadComponent implements OnInit {
 
           // console.log(droppedFile.relativePath, file);
           // this.uploadForm.get('fileToUpload').setValue(file);
-          
+
           const formData = new FormData()
           formData.append('fileToUpload', file, droppedFile.relativePath)
           // formData.append('fileToUpload', this.uploadForm.get('fileToUpload').value);
@@ -67,31 +67,40 @@ export class FileUploadComponent implements OnInit {
           formData.append('phone', this.model.phone)
           formData.append('company', this.model.company)
           formData.append('notes', this.model.notes)
- 
+
           // Headers
           const headers = new HttpHeaders({
             // 'security-token': 'mytoken'
           });
- 
+
           this.http.post(this.SERVER_URL, formData, { headers: headers, responseType: 'json' })
-          .subscribe(
-            (res) => {
-              console.log(res);
-              let resJson = JSON.parse(JSON.stringify(res));
-              this.txnId = resJson.txnId;
-              this.txnStatus = resJson.txnStatus;
-            },
-            (err) => console.log(err)
-          );
-          // console.log('SUCCESS!! :-)\n\n' + JSON.stringify(this.model, null, 3));
-          
+            .subscribe(
+              (res) => {
+                console.log(res);
+                let resJson = JSON.parse(JSON.stringify(res));
+                this.txnId = resJson.txnId;
+                this.txnStatus = resJson.txnStatus;
+              },
+              (err) => console.log(err)
+            );
+
         });
       } else {
         // It was a directory (empty directories are added, otherwise only files)
         const fileEntry = droppedFile.fileEntry as FileSystemDirectoryEntry;
         console.log(droppedFile.relativePath, fileEntry);
       }
-      this.submitMode = false;
+
+      this.delay(500).then(any => {
+        this.model.completionPercent = '50%';
+      });
+      this.delay(1500).then(any => {
+        this.model.completionPercent = '75%';
+      });
+      this.delay(2500).then(any => {
+        this.model.completionPercent = '100%';
+        this.submitMode = false;
+      });
     }
   }
 
@@ -114,8 +123,8 @@ export class FileUploadComponent implements OnInit {
     this.captchaResolved = true;
   }
 
-  toggleConfirm(){
-    if(this.submitMode)
+  toggleConfirm() {
+    if (this.submitMode)
       this.submitMode = false;
     else
       this.submitMode = true;
@@ -128,5 +137,8 @@ export class FileUploadComponent implements OnInit {
     this.captchaResolved = false;
     // this.uploadForm.reset();
 
+  }
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(() => resolve(), ms)).then(() => console.log("fired"));
   }
 }
