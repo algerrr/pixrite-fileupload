@@ -13,7 +13,7 @@
 </div>
 <div class="container" *ngIf="submitMode">
     <div class="row">
-        <div class="col-lg">
+        <div class="col-lg align-self-center">
             <form name="fileUploadForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm"
                 [mustMatch]="['password', 'confirmPassword']" novalidate>
                 <div class="form-row">
@@ -22,13 +22,12 @@
                         <select name="projectType" class="form-control" [(ngModel)]="model.projectType"
                             #projectType="ngModel" [ngClass]="{ 'is-invalid': f.submitted && projectType.invalid }"
                             required>
-                            <option value=""></option>
-                            <option value="AddAndAdv">Additive & Advanced</option>
-                            <option value="SubAndTrad">Subtractive & Traditional</option>
-                            <option value="Urethane">Urethane Casting</option>
-                            <option value="Consulting">Consulting</option>
-                            <option value="PaintFinish">Paint & Finishing Services</option>
                             <option value="Unsure">Unsure</option>
+                            <option value="3dscan">3D Scanning Services</option>
+                            <option value="Prototyping">Prototyping and Product Development</option>
+                            <option value="Creative">Creative Design and Development</option>
+                            <option value="FineArt">Fine Art Fabrication</option>
+                            <option value="Manufacturing">Manufacturing Process Management</option>
                         </select>
                         <div *ngIf="f.submitted && projectType.invalid" class="invalid-feedback">
                             <div *ngIf="projectType.errors.required">Project Type is required</div>
@@ -128,9 +127,6 @@
                     <button class="btn btn-secondary" type="reset">Cancel</button>
                 </div>
             </form>
-        </div>
-        <!-- <div class="w-100"></div> -->
-        <div class="col-lg align-self-center">
             <div class="row">
                 <ngx-file-drop dropZoneLabel="Drop files here" (onFileDrop)="dropped($event)"
                     (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)" dropZoneClassName="drop-zone">
@@ -168,7 +164,7 @@
             <div class="row justify-self-center">
                 <div style="transform:scale(1.0);transform-origin:0;">
                     <re-captcha (resolved)="resolved($event,null)" formControlName="f"
-                        siteKey="6LfOdgEVAAAAAJ-aOewAZJ7eWlqKXCRsCc5UtN2i">
+                        siteKey="6LduL8kZAAAAAIbl2Bak_DRy-YP-Srf7RthL1jOD">
                     </re-captcha>
                 </div>
             </div>
